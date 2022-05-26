@@ -5,7 +5,7 @@
 
 
 # Config
-*.yml
+config.yml
 
 # User-specific files
 *.rsuser
