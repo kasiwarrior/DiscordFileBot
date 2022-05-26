@@ -86,8 +86,8 @@ namespace DiscordFileBot
                 Console.WriteLine(":(");
                 return;
             }
-            if (isFileSender) await _client.LoginAsync(TokenType.Bot, config["tokens:discordMan"]);
-            if (!isFileSender) await _client.LoginAsync(TokenType.Bot, config["tokens:discordBoy"]);
+            if (isFileSender) await _client.LoginAsync(TokenType.Bot, config["tokens:senderBot"]);
+            if (!isFileSender) await _client.LoginAsync(TokenType.Bot, config["tokens:reciverBot"]);
 
             await _client.StartAsync();
 
