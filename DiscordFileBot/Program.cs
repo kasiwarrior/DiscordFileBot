@@ -13,7 +13,7 @@ namespace DiscordFileBot
 {
     class Program
     {
-        private bool isFileMan;
+        private bool isFileSender;
         static Task Main() => new Program().MainAsync();
 
         public async Task MainAsync()
@@ -47,10 +47,10 @@ namespace DiscordFileBot
         public async Task BotSelector()
         {
             string input;
-            Console.WriteLine("File Man (1) \nFile Boy (2)");
+            Console.WriteLine("File Sender (1) \nFile Reciver (2)");
             input = Console.ReadLine();
-            if (input == "1") isFileMan = true;
-            if (input == "2") isFileMan = false;
+            if (input == "1") isFileSender = true;
+            if (input == "2") isFileSender = false;
 
         }
 
@@ -67,8 +67,8 @@ namespace DiscordFileBot
             // add commands below
             pCommands.AddModuel<DiscordFileBot.Modules.PrefixModule>();
             pCommands.AddModuel<DiscordFileBot.FileTransfer.CommonModule>();
-            if(isFileMan) pCommands.AddModuel<DiscordFileBot.FileTransfer.FileSenderModule>();
-            if(!isFileMan) pCommands.AddModuel<DiscordFileBot.FileTransfer.FileReciverModule>();
+            if(isFileSender) pCommands.AddModuel<DiscordFileBot.FileTransfer.FileSenderModule>();
+            if(!isFileSender) pCommands.AddModuel<DiscordFileBot.FileTransfer.FileReciverModule>();
 
             await pCommands.InitializeAsync();
 
@@ -81,13 +81,13 @@ namespace DiscordFileBot
             };
 
             //OTc3NTgzMzk2NTMwMzE1MzE0.GOdLrc.t9OsS-LaHBc0YRjzMiKSJ-dF2OEctHun-iMse4
-            if(isFileMan == null)
+            if(isFileSender == null)
             {
                 Console.WriteLine(":(");
                 return;
             }
-            if (isFileMan) await _client.LoginAsync(TokenType.Bot, config["tokens:discordMan"]);
-            if (!isFileMan) await _client.LoginAsync(TokenType.Bot, config["tokens:discordBoy"]);
+            if (isFileSender) await _client.LoginAsync(TokenType.Bot, config["tokens:discordMan"]);
+            if (!isFileSender) await _client.LoginAsync(TokenType.Bot, config["tokens:discordBoy"]);
 
             await _client.StartAsync();
 

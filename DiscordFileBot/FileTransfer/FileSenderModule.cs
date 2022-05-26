@@ -92,7 +92,7 @@ namespace DiscordFileBot.FileTransfer
             if (!Context.User.IsBot) return;
 
             await Context.Channel.SendMessageAsync("Starting...");
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             await Context.Channel.SendMessageAsync("Splitting");
             await FileSplitter();
             long bytesNum = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder").Length;
