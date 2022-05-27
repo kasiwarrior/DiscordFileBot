@@ -40,6 +40,9 @@ namespace DiscordFileBot
                 .AddSingleton<PrefixHandler>()
                 )
                 .Build();
+            await DiscordFileBot.FileTransfer.FileSenderModule.InitializeFileSender(config["prefix"].ToString());
+            await DiscordFileBot.FileTransfer.FileReciverModule.InitializeFileReciver(config["prefix"].ToString());
+
 
             await RunAsync(host);
 

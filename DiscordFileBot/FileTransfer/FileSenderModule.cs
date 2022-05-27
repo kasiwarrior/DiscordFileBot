@@ -17,15 +17,23 @@ namespace DiscordFileBot.FileTransfer
     class FileSenderModule : ModuleBase<SocketCommandContext>
     {
         bool downloadCheck = false;
+        private static string _prefix;
+
+        public static async Task InitializeFileSender(string prefix)
+        {
+            _prefix = prefix;
+        }
 
 
 
+        //just a test command
         [Command("test")]
         public async Task HandelTest()
         {
-            Console.WriteLine("ye");
-            await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0", "test");
-            await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0", "test");
+            //Console.WriteLine("ye");
+            //Context.Channel.SendMessageAsync(_prefix);
+            //await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0", "test");
+            //await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0", "test");
             /*Console.WriteLine("1");
             string[] inputFiles = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder");
             string[] files = new string[Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder").Length];
@@ -79,7 +87,7 @@ namespace DiscordFileBot.FileTransfer
             filename = Directory.GetFiles(AppContext.BaseDirectory + "Input-Folder")[0];
             Console.WriteLine("Filename: " + filename);
             
-            await Context.Channel.SendMessageAsync("!DownloadCheck");
+            await Context.Channel.SendMessageAsync(_prefix +"DownloadCheck");
         }
 
   
@@ -177,7 +185,7 @@ namespace DiscordFileBot.FileTransfer
             foreach (string s in files)
             {
                
-                await Context.Channel.SendFileAsync(s,"!download");
+                await Context.Channel.SendFileAsync(s,_prefix + "download");
                 await Context.Channel.SendMessageAsync(counter.ToString());
                 counter++;
             }

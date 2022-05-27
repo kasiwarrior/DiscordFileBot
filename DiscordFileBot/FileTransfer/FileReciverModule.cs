@@ -16,6 +16,11 @@ namespace DiscordFileBot.FileTransfer
 {
     class FileReciverModule : ModuleBase<SocketCommandContext>
     {
+        private static string _prefix;
+        public static async Task InitializeFileReciver(string prefix)
+        {
+            _prefix = prefix;
+        }
         bool downloadCheck = false;
         [Command("DownloadCheck")]
         public async Task HandelDownloadCheck()
@@ -24,7 +29,7 @@ namespace DiscordFileBot.FileTransfer
             if(Console.ReadLine() == "y")
             {
                 downloadCheck = true;
-                Context.Channel.SendMessageAsync("!:thumbsup:");
+                Context.Channel.SendMessageAsync(_prefix + ":thumbsup:");
             }
             
         }
