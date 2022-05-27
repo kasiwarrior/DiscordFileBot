@@ -30,13 +30,20 @@ namespace DiscordFileBot.FileTransfer
         [Command("test")]
         public async Task HandelTest()
         {
+            /*
+            filename = Directory.GetFiles(AppContext.BaseDirectory + "Input-Folder")[0];
+            string subtract = AppContext.BaseDirectory + @"Input-Folder\";
+            string final = filename.Replace(subtract, "");
+            Console.WriteLine("Filename: " + filename);
+            filename = final;
+            Console.WriteLine(filename);*/
             //Console.WriteLine("ye");
             //Context.Channel.SendMessageAsync(_prefix);
-            //await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0", "test");
-            //await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0", "test");
+            //await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Dowload-Folder/0", "test");
+            //await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Dowload-Folder/0", "test");
             /*Console.WriteLine("1");
-            string[] inputFiles = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder");
-            string[] files = new string[Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder").Length];
+            string[] inputFiles = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Dowload-Folder");
+            string[] files = new string[Directory.GetFiles(AppContext.BaseDirectory + "Temp-Dowload-Folder").Length];
             Console.WriteLine("2");
 
             bool succes;
@@ -46,7 +53,7 @@ namespace DiscordFileBot.FileTransfer
             {
                 string temp = inputFiles[counter];
                 Console.WriteLine("temp: " + temp);
-                string subtract = AppContext.BaseDirectory + @"Temp-Folder\";
+                string subtract = AppContext.BaseDirectory + @"Temp-Dowload-Folder\";
                 string final = temp.Replace(subtract, "");
                 Console.WriteLine(final);
                 succes = Int32.TryParse(final, out int indexNum);
@@ -68,7 +75,7 @@ namespace DiscordFileBot.FileTransfer
             }
             */
             /*
-            string[] temp2 = new string[temp.Split("Temp-Folder").Length];
+            string[] temp2 = new string[temp.Split("Temp-Dowload-Folder").Length];
             Console.WriteLine("4");
             temp2 = temp.Split('/');
             Console.WriteLine("5");
@@ -77,16 +84,19 @@ namespace DiscordFileBot.FileTransfer
             Console.WriteLine(numberString);
             */
             //await FileSplitter();
-            //await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0");
+            //await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Dowload-Folder/0");
             Context.Channel.SendMessageAsync("Test Done");
         }
+        private static string filename;
         [Command("Send")]
         public async Task HandelConnect() // [Remainder] string filename
         {
-            string filename;
-            filename = Directory.GetFiles(AppContext.BaseDirectory + "Input-Folder")[0];
-            Console.WriteLine("Filename: " + filename);
             
+            filename = Directory.GetFiles(AppContext.BaseDirectory + "Input-Folder")[0];
+            string subtract = AppContext.BaseDirectory + @"Input-Folder\";
+            string final = filename.Replace(subtract, "");
+            Console.WriteLine("Filename: " + filename);
+            filename = final;
             await Context.Channel.SendMessageAsync(_prefix +"DownloadCheck");
         }
 
@@ -102,9 +112,11 @@ namespace DiscordFileBot.FileTransfer
             Thread.Sleep(1000);
             await Context.Channel.SendMessageAsync("Splitting");
             await FileSplitter();
-            long bytesNum = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder").Length;
+            long FileNum = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Dowload-Folder").Length;
 
-            await Context.Channel.SendMessageAsync("Upploading: " + bytesNum + " files");
+            Context.Channel.SendMessageAsync(_prefix + "FileAmount" + FileNum);
+
+            await Context.Channel.SendMessageAsync("Upploading: " + FileNum + " files");
             await FileUpploder();
         }
         private async Task FileSplitter()
@@ -113,7 +125,7 @@ namespace DiscordFileBot.FileTransfer
             Console.WriteLine("splitting");
             Console.WriteLine("third filename: " + filepath);
             string basePath = AppContext.BaseDirectory;
-            string tempDir = "Temp-Folder";
+            string tempDir = "Temp-Dowload-Folder";
             
             long bytes = 0;
             long byteChunks = 0;
@@ -155,8 +167,8 @@ namespace DiscordFileBot.FileTransfer
         private async Task FileUpploder()
         {
 
-            string[] inputFiles = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder");
-            string[] files = new string[Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder").Length];
+            string[] inputFiles = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Dowload-Folder");
+            string[] files = new string[Directory.GetFiles(AppContext.BaseDirectory + "Temp-Dowload-Folder").Length];
             Console.WriteLine("2");
 
             bool succes;
@@ -166,7 +178,7 @@ namespace DiscordFileBot.FileTransfer
             {
                 string temp = inputFiles[counter];
                 Console.WriteLine("temp: " + temp);
-                string subtract = AppContext.BaseDirectory + @"Temp-Folder\";
+                string subtract = AppContext.BaseDirectory + @"Temp-Dowload-Folder\";
                 string final = temp.Replace(subtract, "");
                 Console.WriteLine(final);
                 succes = Int32.TryParse(final, out int indexNum);
@@ -190,7 +202,10 @@ namespace DiscordFileBot.FileTransfer
                 counter++;
             }
 
+            Thread.Sleep(8000);
+            Context.Channel.SendMessageAsync(_prefix + "Combine " + filename);
             DiscordFileBot.FileTransfer.CommonModule.HandelClean();
         }
     }
 }
+// its not dowloading the next to last file korektly i think
