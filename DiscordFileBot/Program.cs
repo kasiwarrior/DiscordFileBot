@@ -77,7 +77,7 @@ namespace DiscordFileBot
             
             _client.Ready += async () => {
                 Console.WriteLine("Bot ready");
-                await sCommands.RegisterCommandsToGuildAsync(UInt64.Parse(config["testGuild"]));
+                //await sCommands.RegisterCommandsToGuildAsync(UInt64.Parse(config["testGuild"]));
             };
 
             //OTc3NTgzMzk2NTMwMzE1MzE0.GOdLrc.t9OsS-LaHBc0YRjzMiKSJ-dF2OEctHun-iMse4

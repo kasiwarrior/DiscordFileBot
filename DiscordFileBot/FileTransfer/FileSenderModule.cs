@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration.Yaml;
 using Discord.Commands;
 using System.IO;
 
+
 namespace DiscordFileBot.FileTransfer
 {
     class FileSenderModule : ModuleBase<SocketCommandContext>
@@ -22,7 +23,10 @@ namespace DiscordFileBot.FileTransfer
         [Command("test")]
         public async Task HandelTest()
         {
-            Console.WriteLine("1");
+            Console.WriteLine("ye");
+            await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0", "test");
+            await Context.Channel.SendFileAsync("C:/Users/Isak/source/repos/DiscordFileBot/DiscordFileBot/bin/Debug/net5.0/Temp-Folder/0", "test");
+            /*Console.WriteLine("1");
             string[] inputFiles = Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder");
             string[] files = new string[Directory.GetFiles(AppContext.BaseDirectory + "Temp-Folder").Length];
             Console.WriteLine("2");
@@ -54,7 +58,7 @@ namespace DiscordFileBot.FileTransfer
             {
                 Console.WriteLine(s);
             }
-            
+            */
             /*
             string[] temp2 = new string[temp.Split("Temp-Folder").Length];
             Console.WriteLine("4");
@@ -72,15 +76,10 @@ namespace DiscordFileBot.FileTransfer
         public async Task HandelConnect() // [Remainder] string filename
         {
             string filename;
-            filename =  Directory.GetFiles(AppContext.BaseDirectory + "Input-Folder")[0];
+            filename = Directory.GetFiles(AppContext.BaseDirectory + "Input-Folder")[0];
             Console.WriteLine("Filename: " + filename);
-            if (filename == null || filename == "")
-            {
-                await Context.Channel.SendMessageAsync("Specify file name");
-                return;
-            }
-
-            await Context.Channel.SendMessageAsync("!download?");
+            
+            await Context.Channel.SendMessageAsync("!DownloadCheck");
         }
 
   
@@ -173,9 +172,12 @@ namespace DiscordFileBot.FileTransfer
             }
 
 
+            counter = 0;
+
             foreach (string s in files)
             {
-                await Context.Channel.SendFileAsync(s);
+               
+                await Context.Channel.SendFileAsync(s,"!download");
                 await Context.Channel.SendMessageAsync(counter.ToString());
                 counter++;
             }

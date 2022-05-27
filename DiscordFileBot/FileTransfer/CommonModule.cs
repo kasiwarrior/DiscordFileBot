@@ -22,6 +22,7 @@ namespace DiscordFileBot.FileTransfer
 
             Directory.CreateDirectory(directory + "/Input-Folder");
             Directory.CreateDirectory(directory + "/Temp-Folder");
+            Directory.CreateDirectory(directory + "/Temp-Folder2");
             Directory.CreateDirectory(directory + "/Output-Folder");
             //Thread.Sleep(5000);
             //Directory.Delete(directory + "/Input-Folder");
