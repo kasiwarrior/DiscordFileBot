@@ -15,18 +15,23 @@ namespace DiscordFileBot.FileTransfer
 {
     class CommonModule : ModuleBase<SocketCommandContext>
     {
-        [Command("Setup")]
-        public async Task HandelSetup()
+        
+        public static async Task HandelSetup()
         {
             string directory = AppContext.BaseDirectory;
 
             Directory.CreateDirectory(directory + "/Input-Folder");
-            Directory.CreateDirectory(directory + "/Temp-Folder");
-            Directory.CreateDirectory(directory + "/Temp-Folder2");
+            Directory.CreateDirectory(directory + "/Temp-Spliting-Folder");
+            Directory.CreateDirectory(directory + "/Temp-Dowload-Folder");
             Directory.CreateDirectory(directory + "/Output-Folder");
-            //Thread.Sleep(5000);
-            //Directory.Delete(directory + "/Input-Folder");
-            Context.Channel.SendMessageAsync(directory);
+        }
+        
+        public static async Task HandelClean()
+        {
+            string directory = AppContext.BaseDirectory;
+
+            Directory.Delete(directory + "/Temp-Spliting-Folder");
+            Directory.Delete(directory + "/Temp-Dowload-Folder");
         }
     }
 }

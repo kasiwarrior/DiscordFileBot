@@ -33,6 +33,7 @@ namespace DiscordFileBot.FileTransfer
             }
             
         }
+        //DiscordFileBot.FileTransfer.CommonModule.HandelClean();
         public static int counter = 0;
         [Command("Download")]
         public async Task HandelDownload()

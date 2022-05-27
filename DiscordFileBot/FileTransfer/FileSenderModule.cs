@@ -189,8 +189,8 @@ namespace DiscordFileBot.FileTransfer
                 await Context.Channel.SendMessageAsync(counter.ToString());
                 counter++;
             }
-            
-            
+
+            DiscordFileBot.FileTransfer.CommonModule.HandelClean();
         }
     }
 }
